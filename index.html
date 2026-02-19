@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cloud Chunk</title>
+  <style>
+    body{font-family:system-ui;margin:20px;max-width:900px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+    input,button{padding:10px}
+    #log{white-space:pre-wrap;background:#111;color:#ddd;padding:10px;border-radius:8px;min-height:160px;overflow:auto}
+    progress{width:100%;height:18px}
+    table{width:100%;border-collapse:collapse}
+    td,th{border-bottom:1px solid #ddd;padding:8px;text-align:left}
+    tr:hover{background:#f5f5f5;cursor:pointer}
+    .sel{background:#e6f0ff}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+  </style>
+</head>
+<body>
+  <h2>Cloud Chunk (GitHub Pages UI)</h2>
+
+  <div class="row">
+    <input id="workerUrl" placeholder="Worker base URL (e.g. https://xyz.workers.dev)" style="flex:1" />
+    <input id="apiKey" placeholder="API key (optional)" />
+    <button id="save">Save</button>
+  </div>
+
+  <div class="row">
+    <input type="file" id="file" />
+    <button id="upload">Upload</button>
+    <button id="refresh">Refresh</button>
+  </div>
+
+  <progress id="prog" value="0" max="100"></progress>
+  <div id="status"></div>
+
+  <h3>Files</h3>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Parts</th><th>Complete</th><th>ID</th></tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <div class="row">
+    <button id="download" disabled>Download</button>
+    <button id="del" disabled>Delete</button>
+  </div>
+
+  <h3>Log</h3>
+  <div id="log"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
