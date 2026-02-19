@@ -5,17 +5,58 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cloud Chunk</title>
   <style>
-    body{font-family:system-ui;margin:20px;max-width:900px}
-    .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
-    input,button{padding:10px}
-    #log{white-space:pre-wrap;background:#111;color:#ddd;padding:10px;border-radius:8px;min-height:160px;overflow:auto}
-    progress{width:100%;height:18px}
-    table{width:100%;border-collapse:collapse}
-    td,th{border-bottom:1px solid #ddd;padding:8px;text-align:left}
-    tr:hover{background:#f5f5f5;cursor:pointer}
-    .sel{background:#e6f0ff}
-    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-  </style>
+  :root{
+    --bg:#0b0f17; --card:#111827; --muted:#94a3b8; --text:#e5e7eb;
+    --line:#1f2937; --btn:#2563eb; --btn2:#334155; --good:#22c55e; --bad:#ef4444;
+  }
+  body{
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    margin:24px auto; max-width:980px; padding:0 16px;
+    background:linear-gradient(180deg,#060912,#0b0f17);
+    color:var(--text);
+  }
+  h2,h3{margin:16px 0 10px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+  input,button{
+    padding:10px 12px; border-radius:10px; border:1px solid var(--line);
+    background:#0b1220; color:var(--text); outline:none;
+  }
+  input{min-width:240px}
+  input:focus{border-color:#3b82f6; box-shadow:0 0 0 3px rgba(59,130,246,.2)}
+  button{
+    background:var(--btn); border:none; cursor:pointer; font-weight:600;
+    transition:transform .05s ease, filter .2s ease;
+  }
+  button:hover{filter:brightness(1.05)}
+  button:active{transform:translateY(1px)}
+  button:disabled{opacity:.5; cursor:not-allowed}
+  #save{background:var(--btn2)}
+  #status{color:var(--muted); margin:8px 0}
+  progress{
+    width:100%; height:14px; border-radius:999px; overflow:hidden;
+    background:#0b1220; border:1px solid var(--line);
+  }
+  progress::-webkit-progress-bar{background:#0b1220}
+  progress::-webkit-progress-value{background:#3b82f6}
+
+  table{
+    width:100%; border-collapse:separate; border-spacing:0;
+    background:rgba(17,24,39,.7); border:1px solid var(--line);
+    border-radius:14px; overflow:hidden;
+  }
+  th,td{padding:10px 12px; border-bottom:1px solid var(--line); text-align:left}
+  th{color:var(--muted); font-weight:700; background:rgba(2,6,23,.35)}
+  tr:last-child td{border-bottom:none}
+  tr:hover{background:rgba(59,130,246,.08)}
+  .sel{background:rgba(59,130,246,.18) !important}
+
+  #log{
+    white-space:pre-wrap; background:#050814; color:#cbd5e1;
+    padding:12px; border-radius:14px; min-height:180px;
+    border:1px solid var(--line); overflow:auto;
+  }
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+</style>
 </head>
 <body>
   <h2>Cloud Chunk (GitHub Pages UI)</h2>
