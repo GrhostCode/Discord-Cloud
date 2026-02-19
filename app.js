@@ -150,21 +150,38 @@ async function downloadSelected() {
   });
 
   if (!r.ok) {
-    const t = await r.text();
-    throw new Error(t);
+    const t = await r.text().catch(() => "");
+    throw new Error(t || `Download failed: HTTP ${r.status}`);
   }
 
-  const blob = await r.blob();
   const cd = r.headers.get("content-disposition") || "";
-  const m = /filename="([^"]+)"/.exec(cd);
-  const name = m ? m[1] : "download.bin";
+
+  // supports: filename="x.ext"  AND  filename*=UTF-8''x.ext
+  let name = "download.bin";
+
+  const mStar = /filename\*\s*=\s*UTF-8''([^;]+)/i.exec(cd);
+  if (mStar) {
+    name = decodeURIComponent(mStar[1]);
+  } else {
+    const m =
+      /filename\s*=\s*"([^"]+)"/i.exec(cd) ||
+      /filename\s*=\s*([^;]+)/i.exec(cd);
+
+    if (m) name = m[1].trim().replace(/^"|"$/g, "");
+  }
+
+  // NOTE: this buffers the full file in memory as a Blob.
+  // For huge files this can be heavy in-browser.
+  const blob = await r.blob();
 
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = name;
+  document.body.appendChild(a);
   a.click();
-  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  a.remove();
 
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   status("Download started.");
 }
 
